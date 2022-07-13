@@ -3,8 +3,10 @@ import Style from './style.module.css';
 import '../../../../../assets/font/iconfont.css';
 import SmallPlayBtn from '../../component/SmallPlayBtn';
 import Volume from '../../component/Volume';
+// eslint-disable-next-line import/order
 import { connect } from 'react-redux';
 import createChangeMusicStateAction from '../../../../store/music/music_action';
+import Avatar from '../../component/avatar';
 
 class Footer extends React.Component<any, any> {
   private audioRef: any;
@@ -50,7 +52,7 @@ class Footer extends React.Component<any, any> {
 
   dragToMoveVolume = () => {
     document.onmousemove = (mouseEvent) => {
-      let width = mouseEvent.clientX - 300;
+      let width = mouseEvent.clientX - 400;
       width = width > 100 ? 100 : width;
       this.setState({ volumeBarWidth: width });
       this.audioRef.current.volume = width / 100 > 1 ? 1 : width / 100;
@@ -90,15 +92,49 @@ class Footer extends React.Component<any, any> {
         <audio src="/music/example.mp3" ref={this.audioRef}>
           <source src="/music/example.mp3" type="audio/mp3" />
         </audio>
+        <Avatar top="10px" left="20px" width="40px" height="40px">
+          <img
+            style={{ width: '100%', height: '100%', borderRadius: '5px' }}
+            src="/myStatic/pika.jpg"
+            alt="图片加载错误"
+          />
+        </Avatar>
+        <div className={Style.musicInfo}>
+          <span>小城夏天</span>
+          <br/>
+          <span>LBI比利</span>
+        </div>
         <Volume
           style={{ width: volumeBarWidth }}
           onmousedown={this.dragToMoveVolume}
         />
-        <SmallPlayBtn
-          onClick={this.clickToPlay}
-          playing={playing}
-          style={{ left: '38%' }}
-        />
+        <div className={Style.btn_area}>
+          <i
+            className="iconfont"
+            style={{
+              fontSize: '30px',
+              position: 'absolute',
+              top: '15px',
+              left: '-9px',
+              cursor: 'pointer',
+            }}
+          >
+            &#xe612;
+          </i>
+          <SmallPlayBtn onClick={this.clickToPlay} playing={playing} />
+          <i
+            className="iconfont"
+            style={{
+              fontSize: '30px',
+              position: 'absolute',
+              top: '15px',
+              left: '79px',
+              cursor: 'pointer',
+            }}
+          >
+            &#xe610;
+          </i>
+        </div>
       </div>
     );
   }

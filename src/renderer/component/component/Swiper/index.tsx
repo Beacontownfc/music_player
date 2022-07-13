@@ -37,9 +37,9 @@ export default class Swiper extends React.Component<any, any> {
       <div className={Style.swiper}>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div className={Style.swiperBody} ref={this.swiperRef}>
-          {imgs.map((item: { src: string | undefined }) => {
+          {imgs.map((item: { src: string | undefined }, index: number) => {
             return (
-              <div className={Style.swiperItem}>
+              <div className={Style.swiperItem} key={item.src + index}>
                 <img
                   src={item.src}
                   alt="无图片"

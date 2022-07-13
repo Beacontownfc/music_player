@@ -61,3 +61,34 @@
   margin-left: 30px;
   margin-top: 20px;
 }
+
+.musicItem{
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  transition: background-color 1s;
+  cursor: pointer;
+}
+.musicItem:hover{
+  background-color: rgba(0,0,0,0.4);
+}
+.musicItem span:nth-child(1){
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 15px;
+}
+
+.musicItem span:nth-child(2){
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 15px;
+}
+.musicItem span:nth-child(3){
+  display: inline-block;
+  position: absolute;
+  right: 20px;
+  font-size: 15px;
+}

@@ -1,7 +1,10 @@
 import React, { createRef } from 'react';
 import { connect } from 'react-redux';
 import Style from './style.module.css';
-import { getLrc } from '../../../../request/requests/musicRequest';
+import {
+  getLrc,
+  getMusicInfo,
+} from '../../../../request/requests/musicRequest';
 import createChangeMusicStateAction from '../../../../store/music/music_action';
 
 class Playing extends React.Component<any, any> {
@@ -11,13 +14,15 @@ class Playing extends React.Component<any, any> {
 
   constructor(props: any) {
     super(props);
-    this.state = { lrc: { lrc: [] }, top: 0, index: 0 };
+    this.state = { lrc: { lrc: [] }, top: 0, index: 0, url: '' };
     this.ulRef = createRef();
     this.int = '';
   }
 
   async componentDidMount() {
-    const res: any = await getLrc();
+    const res: any = await getLrc(1);
+    const res_: any = await getMusicInfo(1);
+    this.setState({ url: res_.picture });
     res.lrc = res.lrc.split('\n');
     res.lrc.forEach((item: string, index: number, arr: Array<any>) => {
       const i = item.indexOf(']') + 1;
@@ -46,18 +51,21 @@ class Playing extends React.Component<any, any> {
   };
 
   render() {
-    const { lrc, index } = this.state;
+    const { lrc, index, url } = this.state;
     this.int = setInterval(() => this.moveUl(), 100);
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div className={Style.box}>
+        <div className={Style.picture}>
+          <img src={url} alt="无图片" style={{width: '100%', height: '100%', borderRadius: '20px'}} />
+        </div>
         <div className={Style.lrcBox}>
           <ul ref={this.ulRef}>
             {lrc.lrc.map((item: any, i: number) => {
               return (
                 <li
                   className={Style.lrcWord}
-                  key={item.trueLrc}
+                  key={item.trueLrc + i}
                   style={
                     index === i
                       ? { color: 'black', fontWeight: 'bold', fontSize: '20px' }

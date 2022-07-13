@@ -1,0 +1,25 @@
+.swiper{
+  width: 300px;
+  height: 150px;
+  margin-left: 20px;
+  margin-top: 20px;
+  border: 1px solid transparent;
+  overflow: hidden;
+  background-color: #fedc2a;
+  position: relative;
+}
+
+.swiperItem{
+  width: 300px;
+  height: 150px;
+  background-color: red;
+  display: inline-block;
+}
+
+.swiperBody{
+  position: absolute;
+  width: 1300px;
+  height: 150px;
+  left: 0;
+  transition: left 2s;
+}

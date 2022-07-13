@@ -1,0 +1,14 @@
+.siderBar{
+    width: 200px;
+    height: 3000px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-top: 1px solid transparent;
+    flex-shrink: 0;
+}
+
+.content{
+    width: 180px;
+    height: 800px;
+    margin: 0 auto;
+    margin-top: 60px;
+}

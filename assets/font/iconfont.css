@@ -1,0 +1,53 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1657587881260') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zanting:before {
+  content: "\e87a";
+}
+
+.icon-yinliang:before {
+  content: "\e87b";
+}
+
+.icon-zanting1:before {
+  content: "\e629";
+}
+
+.icon-yifu:before {
+  content: "\e62e";
+}
+
+.icon-next:before {
+  content: "\e6a2";
+}
+
+.icon-timeout:before {
+  content: "\e6a3";
+}
+
+.icon-dislike:before {
+  content: "\e6e9";
+}
+
+.icon-like:before {
+  content: "\e6eb";
+}
+
+.icon-Chevron-Right:before {
+  content: "\e610";
+}
+
+.icon-Chevron-Left:before {
+  content: "\e612";
+}
+

@@ -1,0 +1,57 @@
+.footer{
+  width: 100%;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  bottom: 0;
+}
+
+.play_btn{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #656f8e;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+  top: 50%;
+  left: 38%;
+  margin-top: -20px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.progressBar{
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #818493;
+  cursor: pointer;
+}
+
+
+.innerProgressBarLeft{
+  width: 30%;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+  background-color: #656f8e;
+}
+
+
+.smallBall{
+  cursor: pointer;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #585E71;
+  right: -5px;
+  top: -3px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.progressBar:hover .smallBall{
+  opacity: 1;
+}

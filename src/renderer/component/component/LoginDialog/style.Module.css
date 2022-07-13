@@ -1,0 +1,52 @@
+.dialog{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.dialogBox{
+  width: 400px;
+  height: 300px;
+  margin: auto;
+  margin-top: 200px;
+  background: linear-gradient(
+    200.96deg,
+    brown -29.09%,
+    burlywood 51.77%,
+    deepskyblue 129.35%
+  );
+  border: 1px solid #dd5789;
+  border-radius: 10px;
+  box-shadow: 0 0 6px 2px gray;
+}
+
+.desc{
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.dialogInput{
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 30px;
+  height: 10px;
+  width: 300px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.btn1{
+  font-size: 13px;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-left: 210px;
+}
+.btn2{
+  font-size: 13px;
+  margin-right: 10px;
+  margin-top: 20px;
+}

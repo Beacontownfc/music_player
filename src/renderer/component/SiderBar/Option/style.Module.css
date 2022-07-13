@@ -1,0 +1,12 @@
+.option{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    width: 160px;
+    border-radius: 10px;
+}
+
+.option:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

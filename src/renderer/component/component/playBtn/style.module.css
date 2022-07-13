@@ -1,0 +1,24 @@
+.player{
+  height: 110px;
+  width: 110px;
+  background-color: #636875;
+  position: absolute;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.play_btn{
+  width: 110px;
+  height: 110px;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  text-align: center;
+  line-height: 110px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.play_btn:hover{
+  opacity: 1;
+}
+

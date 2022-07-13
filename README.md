@@ -21,10 +21,18 @@
 - [x] 播放歌词滚动 🌍
 
 #### 运行这个项目
+- 前端
 ```shell
 cnpm install
 cnpm start
 ```
+- 后端
+地址：`https://github.com/Beacontownfc/music_player_backend`
+```shell
+cnpm install
+node main.js
+```
+
 
 #### 运行截图
 

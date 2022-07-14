@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Style from './style.Module.css';
 // import { login } from '../../../request/requests/userRequest';
 import Playing from './Playing';
@@ -28,6 +28,7 @@ class Main extends React.Component<any, any> {
     return (
       <div className={Style.main}>
         <Routes>
+          <Route path="/" element={<Navigate to="/recommend" />} />
           <Route
             path="/recommend"
             element={

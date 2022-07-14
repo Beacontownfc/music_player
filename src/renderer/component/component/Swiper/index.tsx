@@ -20,6 +20,10 @@ export default class Swiper extends React.Component<any, any> {
     return true;
   }
 
+  componentWillUnmount() {
+    clearInterval(this.int);
+  }
+
   render() {
     this.int = setInterval(() => {
       if (this.left <= -900) {

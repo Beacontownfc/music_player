@@ -1,11 +1,5 @@
 ### nodeJS + express + electron + react的音乐播放器
 
-<p align="center">
-   <a href="https://reactnative.dev/docs/contributing">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
-  </a>
-</p>
-
 ## 简介
 
 该播放器使用了主流的`electron` `react` `TypeScript` 等主流技术开发。

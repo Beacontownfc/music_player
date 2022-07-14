@@ -1,19 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Style from './style.Module.css';
 import Swiper from '../../component/Swiper';
 import Card from '../../component/Card';
 import Avatar from '../../component/avatar';
 import PlayBtn from '../../component/playBtn';
-import SmallPlayBtn from '../../component/SmallPlayBtn';
+// import SmallPlayBtn from '../../component/SmallPlayBtn';
+import { getPopularList } from '../../../../request/requests/musicRequest';
+import {
+  createChangeMusicAction,
+  createPlayMusicAction,
+} from '../../../../store/music/music_action';
 
-export default class MainBody extends React.Component<any, any> {
+class MainBody extends React.Component<any, any> {
   private imgs: any;
+
   private imgs1: any;
 
   constructor(props: any) {
     super(props);
     this.state = {
       barStyle: { right: '20px', opacity: '0', transition: 'opacity 1s' },
+      allMusic: [],
     };
     this.imgs = [
       { src: '/swiper/1.jpg' },
@@ -29,11 +37,14 @@ export default class MainBody extends React.Component<any, any> {
     ];
   }
 
-  onMouseMove = () => {
-    this.setState({
-      barStyle: { right: '20px', opacity: '1', transition: 'opacity 1s' },
-    });
-  };
+  componentDidMount() {
+    this.getAllMusic();
+  }
+
+  async getAllMusic() {
+    const res = await getPopularList();
+    this.setState({ allMusic: res.data });
+  }
 
   onMouseLeave = () => {
     this.setState({
@@ -41,8 +52,21 @@ export default class MainBody extends React.Component<any, any> {
     });
   };
 
+  clickToPlayMusic = (item: any) => {
+    // console.log(this.props, item);
+    const { changeMusic, playMusic } = this.props;
+    changeMusic(item);
+    setTimeout(() => playMusic(), 1000);
+  };
+
+  onMouseMove = () => {
+    this.setState({
+      barStyle: { right: '20px', opacity: '1', transition: 'opacity 1s' },
+    });
+  };
+
   render() {
-    const { barStyle } = this.state;
+    const { barStyle, allMusic } = this.state;
     return (
       <div className={Style['main-body']}>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -77,70 +101,30 @@ export default class MainBody extends React.Component<any, any> {
         >
           <div className={Style.title}>流行音乐</div>
           <div style={{ marginTop: '30px' }}>
-            <div className={Style.bar}>
-              <Avatar top="10px" left="20px" width="30px" height="30px">
-                <img
-                  className={Style.image}
-                  src="/myStatic/pika.jpg"
-                  alt="图片加载错误"
-                />
-              </Avatar>
-              <div className={Style.musicDesc}>小城夏天</div>
-              <SmallPlayBtn
+            {allMusic.map((item: { name: any; picture: any }) => {
+              return (
+                <div
+                  className={Style.bar}
+                  key={item.picture}
+                  onClick={() => this.clickToPlayMusic(item)}
+                >
+                  <Avatar top="10px" left="20px" width="30px" height="30px">
+                    <img
+                      className={Style.image}
+                      src={item.picture}
+                      alt="图片加载错误"
+                    />
+                  </Avatar>
+                  <div className={Style.musicDesc}>{item.name}</div>
+                  {/* <SmallPlayBtn
                 style={barStyle}
                 playing
                 onMouseMove={this.onMouseMove}
                 onMouseLeave={this.onMouseLeave}
-              />
-            </div>
-            <div className={Style.bar}>
-              <Avatar top="10px" left="20px" width="30px" height="30px">
-                <img
-                  className={Style.image}
-                  src="/myStatic/kabi.jpg"
-                  alt="图片加载错误"
-                />
-              </Avatar>
-              <div className={Style.musicDesc}>妈妈的话</div>
-              <SmallPlayBtn
-                style={barStyle}
-                playing
-                onMouseMove={this.onMouseMove}
-                onMouseLeave={this.onMouseLeave}
-              />
-            </div>
-            <div className={Style.bar}>
-              <Avatar top="10px" left="20px" width="30px" height="30px">
-                <img
-                  className={Style.image}
-                  src="/myStatic/keda.jpg"
-                  alt="图片加载错误"
-                />
-              </Avatar>
-              <div className={Style.musicDesc}>孤勇者</div>
-              <SmallPlayBtn
-                style={barStyle}
-                playing
-                onMouseMove={this.onMouseMove}
-                onMouseLeave={this.onMouseLeave}
-              />
-            </div>
-            <div className={Style.bar}>
-              <Avatar top="10px" left="20px" width="30px" height="30px">
-                <img
-                  className={Style.image}
-                  src="/myStatic/jieni.jpg"
-                  alt="图片加载错误"
-                />
-              </Avatar>
-              <div className={Style.musicDesc}>夜曲</div>
-              <SmallPlayBtn
-                style={barStyle}
-                playing
-                onMouseMove={this.onMouseMove}
-                onMouseLeave={this.onMouseLeave}
-              />
-            </div>
+              /> */}
+                </div>
+              );
+            })}
           </div>
         </Card>
         <Card
@@ -150,36 +134,51 @@ export default class MainBody extends React.Component<any, any> {
           left="0"
           backgroundColor="rgba(0,0,0,0.2)"
         >
-          <div style={{ fontSize: '25px', fontWeight: 'bold', position: 'relative', top: '10px', left: '20px' }}>播放列表</div>
+          <div
+            style={{
+              fontSize: '25px',
+              fontWeight: 'bold',
+              position: 'relative',
+              top: '10px',
+              left: '20px',
+            }}
+          >
+            播放列表
+          </div>
           <ul style={{ position: 'relative', top: '30px' }}>
-            <li className={Style.musicItem}>
-              <span>01</span>
-              <span>小城夏天</span>
-              <span>03:32</span>
-            </li>
-            <li className={Style.musicItem}>
-              <span>02</span>
-              <span>夜曲</span>
-              <span>03:56</span>
-            </li>
-            <li className={Style.musicItem}>
-              <span>03</span>
-              <span>妈妈的话</span>
-              <span>02:50</span>
-            </li>
-            <li className={Style.musicItem}>
-              <span>04</span>
-              <span>说书人</span>
-              <span>03:36</span>
-            </li>
-            <li className={Style.musicItem}>
-              <span>05</span>
-              <span>倔强</span>
-              <span>03:56</span>
-            </li>
+            {allMusic.map((item: any) => {
+              return (
+                <li
+                  key={item.id}
+                  className={Style.musicItem}
+                  onClick={() => this.clickToPlayMusic(item)}
+                >
+                  <span>{`0${item.id}`}</span>
+                  <span>{item.name}</span>
+                  <span>03:32</span>
+                </li>
+              );
+            })}
           </ul>
         </Card>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state: any) => {
+  return { musicInfo: state.music_reducer.musicInfo };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    changeMusic(data: any) {
+      dispatch(createChangeMusicAction(data));
+    },
+    playMusic() {
+      dispatch(createPlayMusicAction());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainBody);

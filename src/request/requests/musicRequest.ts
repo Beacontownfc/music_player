@@ -15,3 +15,10 @@ export async function getMusicInfo(id: number) {
     data: { id },
   });
 }
+
+export async function getPopularList() {
+  return request({
+    method: 'GET',
+    url: '/api/getpopular',
+  });
+}

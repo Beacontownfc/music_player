@@ -1,11 +1,8 @@
 import React, { createRef } from 'react';
 import { connect } from 'react-redux';
 import Style from './style.module.css';
-import {
-  getLrc,
-  getMusicInfo,
-} from '../../../../request/requests/musicRequest';
-import createChangeMusicStateAction from '../../../../store/music/music_action';
+import { getLrc } from '../../../../request/requests/musicRequest';
+import { createChangeMusicStateAction } from '../../../../store/music/music_action';
 
 class Playing extends React.Component<any, any> {
   private ulRef: any;
@@ -20,9 +17,8 @@ class Playing extends React.Component<any, any> {
   }
 
   async componentDidMount() {
-    const res: any = await getLrc(1);
-    const res_: any = await getMusicInfo(1);
-    this.setState({ url: res_.picture });
+    const { musicInfo } = this.props;
+    const res: any = await getLrc(musicInfo.id);
     res.lrc = res.lrc.split('\n');
     res.lrc.forEach((item: string, index: number, arr: Array<any>) => {
       const i = item.indexOf(']') + 1;
@@ -51,13 +47,18 @@ class Playing extends React.Component<any, any> {
   };
 
   render() {
-    const { lrc, index, url } = this.state;
+    const { lrc, index } = this.state;
+    const { musicInfo } = this.props;
     this.int = setInterval(() => this.moveUl(), 100);
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div className={Style.box}>
         <div className={Style.picture}>
-          <img src={url} alt="无图片" style={{width: '100%', height: '100%', borderRadius: '20px'}} />
+          <img
+            src={musicInfo.picture}
+            alt="无图片"
+            style={{ width: '100%', height: '100%', borderRadius: '20px' }}
+          />
         </div>
         <div className={Style.lrcBox}>
           <ul ref={this.ulRef}>
@@ -84,7 +85,10 @@ class Playing extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state: any) => {
-  return { currentTime: state.music_reducer.currentTime };
+  return {
+    currentTime: state.music_reducer.currentTime,
+    musicInfo: state.music_reducer.musicInfo,
+  };
 };
 
 const mapDispatchToProps = (dispath: any) => {

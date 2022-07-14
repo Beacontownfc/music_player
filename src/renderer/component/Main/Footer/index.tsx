@@ -5,7 +5,10 @@ import SmallPlayBtn from '../../component/SmallPlayBtn';
 import Volume from '../../component/Volume';
 // eslint-disable-next-line import/order
 import { connect } from 'react-redux';
-import createChangeMusicStateAction from '../../../../store/music/music_action';
+import {
+  createChangeMusicStateAction,
+  createChangeMusic,
+} from '../../../../store/music/music_action';
 import Avatar from '../../component/avatar';
 
 class Footer extends React.Component<any, any> {
@@ -31,15 +34,21 @@ class Footer extends React.Component<any, any> {
     }, 10);
   };
 
-  clickToPlay = () => {
+  clickToPlay = (mark: boolean) => {
     const { playing, volumeBarWidth } = this.state;
-    this.setState({ playing: !playing });
+    if (!mark) this.setState({ playing: !playing });
+    else this.setState({ playing: true });
     this.audioRef.current.volume = volumeBarWidth / 100;
     if (playing) {
       this.audioRef.current.play();
       this.moveProgressBar();
     } else this.audioRef.current.pause();
   };
+
+  componentDidMount() {
+    const { changeAudioAction } = this.props;
+    changeAudioAction(this);
+  }
 
   clickToMove = (e: any) => {
     const { duration } = this.audioRef.current;
@@ -76,6 +85,7 @@ class Footer extends React.Component<any, any> {
 
   render() {
     const { playing, progressBarWidth, volumeBarWidth } = this.state;
+    const { musicInfo } = this.props;
     return (
       <div className={Style.footer}>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
@@ -89,20 +99,20 @@ class Footer extends React.Component<any, any> {
           </div>
         </div>
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-        <audio src="/music/example.mp3" ref={this.audioRef}>
-          <source src="/music/example.mp3" type="audio/mp3" />
+        <audio src={musicInfo.music} ref={this.audioRef}>
+          <source src={musicInfo.music} type="audio/mp3" />
         </audio>
         <Avatar top="10px" left="20px" width="40px" height="40px">
           <img
             style={{ width: '100%', height: '100%', borderRadius: '5px' }}
-            src="/myStatic/pika.jpg"
+            src={musicInfo.picture}
             alt="图片加载错误"
           />
         </Avatar>
         <div className={Style.musicInfo}>
-          <span>小城夏天</span>
-          <br/>
-          <span>LBI比利</span>
+          <span>{musicInfo.name}</span>
+          <br />
+          <span>{musicInfo.author}</span>
         </div>
         <Volume
           style={{ width: volumeBarWidth }}
@@ -121,7 +131,10 @@ class Footer extends React.Component<any, any> {
           >
             &#xe612;
           </i>
-          <SmallPlayBtn onClick={this.clickToPlay} playing={playing} />
+          <SmallPlayBtn
+            onClick={() => this.clickToPlay(false)}
+            playing={playing}
+          />
           <i
             className="iconfont"
             style={{
@@ -141,13 +154,19 @@ class Footer extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state: any) => {
-  return { currentTime: state.music_reducer.currentTime };
+  return {
+    currentTime: state.music_reducer.currentTime,
+    musicInfo: state.music_reducer.musicInfo,
+  };
 };
 
 const mapDispatchToProps = (dispath: any) => {
   return {
     changeCurrentTime(data: any) {
       dispath(createChangeMusicStateAction(data));
+    },
+    changeAudioAction(data: any) {
+      dispath(createChangeMusic(data));
     },
   };
 };

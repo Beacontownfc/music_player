@@ -1,7 +1,7 @@
 import React from 'react';
 import Style from './style.module.css';
 
-export default class Avatar extends React.Component<any, any> {
+export default class PlayBtn extends React.Component<any, any> {
   render() {
     const { right, left, top, bottom } = this.props;
     return (

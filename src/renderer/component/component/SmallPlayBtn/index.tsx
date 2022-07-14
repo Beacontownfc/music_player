@@ -17,7 +17,7 @@ export default class SmallPlayBtn extends React.Component<any, any> {
           className="iconfont"
           style={{
             fontSize: '40px',
-            display: !playing ? 'none' : 'inline-block',
+            display: playing ? 'inline-block' : 'none',
           }}
         >
           &#xe6a3;
@@ -26,7 +26,7 @@ export default class SmallPlayBtn extends React.Component<any, any> {
           className="iconfont"
           style={{
             fontSize: '30px',
-            display: !playing ? 'inline-block' : 'none',
+            display: playing ? 'none' : 'inline-block',
           }}
         >
           &#xe629;
